@@ -16,8 +16,18 @@ def test_TC_C04_add_item_to_cart(page: Page):
 
     home.load()
     home.search_product("Màn hình")
-    product.add_first_item_to_cart()
-    product.go_to_cart()
+
+    product.select_sort("Đánh giá")
+    page.wait_for_timeout(3000)
+
+    try:
+        product.add_first_item_to_cart()
+        product.go_to_cart()
+    except:
+        product.select_sort("Giá tăng dần")
+        page.wait_for_timeout(3000)
+        product.add_first_item_to_cart()
+        product.go_to_cart()
 
     # Kì vọng: Ô hiển thị tổng tiền xuất hiện, chứng tỏ giỏ hàng có đồ
     expect(cart.total_price).to_be_visible(timeout=8000)
@@ -30,8 +40,17 @@ def test_TC_C01_increase_quantity_updates_price(page: Page):
 
     home.load()
     home.search_product("Chuột Logitech")
-    product.add_first_item_to_cart()
-    product.go_to_cart()
+    product.select_sort("Đánh giá")
+    page.wait_for_timeout(3000)
+
+    try:
+        product.add_first_item_to_cart()
+        product.go_to_cart()
+    except:
+        product.select_sort("Giá tăng dần")
+        page.wait_for_timeout(3000)
+        product.add_first_item_to_cart()
+        product.go_to_cart()
 
     initial_price = cart.get_total_price()
 
@@ -53,8 +72,17 @@ def test_TC_C02_decrease_quantity_at_minimum(page: Page):
 
     home.load()
     home.search_product("Chuột Logitech")
-    product.add_first_item_to_cart()
-    product.go_to_cart()
+    product.select_sort("Đánh giá")
+    page.wait_for_timeout(3000)
+
+    try:
+        product.add_first_item_to_cart()
+        product.go_to_cart()
+    except:
+        product.select_sort("Giá tăng dần")
+        page.wait_for_timeout(3000)
+        product.add_first_item_to_cart()
+        product.go_to_cart()
 
     qty_input = page.locator("div[role='group'] input[type='text']").first
 
@@ -72,8 +100,17 @@ def test_TC_C03_delete_item_from_cart(page: Page):
 
     home.load()
     home.search_product("Bàn phím cơ")
-    product.add_first_item_to_cart()
-    product.go_to_cart()
+    product.select_sort("Đánh giá")
+    page.wait_for_timeout(3000)
+
+    try:
+        product.add_first_item_to_cart()
+        product.go_to_cart()
+    except:
+        product.select_sort("Giá tăng dần")
+        page.wait_for_timeout(3000)
+        product.add_first_item_to_cart()
+        product.go_to_cart()
 
     cart.delete_item()
 
@@ -90,9 +127,17 @@ def test_TC_C05_add_same_item_multiple_times(page: Page):
 
     home.load()
     home.search_product("Chuột Logitech")
+    product.select_sort("Đánh giá")
+    page.wait_for_timeout(3000)
+
+    try:
+        product.add_first_item_to_cart()
+    except:
+        product.select_sort("Giá tăng dần")
+        page.wait_for_timeout(3000)
+        product.add_first_item_to_cart()
 
     # Bấm thêm vào giỏ 2 lần liên tiếp
-    product.add_first_item_to_cart()
     page.wait_for_timeout(1000)
     product.add_first_item_to_cart()
 
@@ -110,9 +155,18 @@ def test_TC_C06_refresh_page_keeps_cart_data(page: Page):
     print("\n🟢 [TC_C06] Refresh trang: Thêm đồ vào giỏ và F5 trình duyệt")
 
     home.load()
-    home.search_product("Tai nghe")
-    product.add_first_item_to_cart()
-    product.go_to_cart()
+    home.search_product("Laptop Acer")
+    product.select_sort("Đánh giá")
+    page.wait_for_timeout(3000)
+
+    try:
+        product.add_first_item_to_cart()
+        product.go_to_cart()
+    except:
+        product.select_sort("Giá tăng dần")
+        page.wait_for_timeout(3000)
+        product.add_first_item_to_cart()
+        product.go_to_cart()
 
     initial_price = cart.get_total_price()
 
@@ -132,9 +186,18 @@ def test_TC_C07_calculate_total_price(page: Page):
     print("\n🟢 [TC_C07] Kiểm tra toán học: Tổng tiền = Đơn giá x Số lượng")
 
     home.load()
-    home.search_product("Bàn phím Aula")
-    product.add_first_item_to_cart()
-    product.go_to_cart()
+    home.search_product("Bàn phím")
+    product.select_sort("Đánh giá")
+    page.wait_for_timeout(3000)
+
+    try:
+        product.add_first_item_to_cart()
+        product.go_to_cart()
+    except:
+        product.select_sort("Giá tăng dần")
+        page.wait_for_timeout(3000)
+        product.add_first_item_to_cart()
+        product.go_to_cart()
 
     # Lấy giá của 1 sản phẩm trước khi tăng (Chỉ lấy các chữ số)
     unit_price_str = re.sub(r"[^\d]", "", cart.get_total_price())
@@ -166,13 +229,32 @@ def test_TC_C08_clear_all_items_in_cart(page: Page):
     # Thêm sản phẩm 1
     home.load()
     home.search_product("Chuột Logitech")
-    product.add_first_item_to_cart()
+    page.wait_for_timeout(3000)
+    product.select_sort("Đánh giá")
+    page.wait_for_timeout(3000)
+
+    try:
+        product.add_first_item_to_cart()
+        product.go_to_cart()
+    except:
+        product.select_sort("Giá tăng dần")
+        page.wait_for_timeout(3000)
+        product.add_first_item_to_cart()
+        product.go_to_cart()
 
     # Thêm sản phẩm 2
     home.search_product("Bàn phím cơ")
-    product.add_first_item_to_cart()
+    product.select_sort("Đánh giá")
+    page.wait_for_timeout(3000)
 
-    product.go_to_cart()
+    try:
+        product.add_first_item_to_cart()
+        product.go_to_cart()
+    except:
+        product.select_sort("Giá tăng dần")
+        page.wait_for_timeout(3000)
+        product.add_first_item_to_cart()
+        product.go_to_cart()
 
     # Click trực tiếp nút Xóa toàn bộ thay vì dùng vòng lặp while
     print("   [-] Đang bấm nút Xóa toàn bộ...")

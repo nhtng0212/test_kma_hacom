@@ -4,4 +4,4 @@ pytest tests/test_3_cart.py -v --headed --html=report.html --self-contained-html
 
 pytest tests -v --headed --html=report.html --self-contained-html
 
-pytest tests/test_3_cart.py -k "TC_C05" -v -s --headed --html=report.html
+pytest tests/test_3_cart.py -k "TC_C06" -v -s --headed --html=report.html

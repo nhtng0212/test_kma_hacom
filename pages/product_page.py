@@ -55,9 +55,6 @@ class ProductPage:
             self.page.wait_for_timeout(2500)
             return
 
-        # =====================================================
-        # FILTER HÃNG
-        # =====================================================
         brand = filter_text.lower().strip()
 
         target_label = self.page.locator(
@@ -75,9 +72,7 @@ class ProductPage:
         # Mở rộng danh sách hãng nếu cần
         for i in range(20):
             if target_label.is_visible():
-                print(
-                    f"[LOG] Tuyệt vời! Hãng '{filter_text}' ĐÃ HIỂN THỊ trên màn hình."
-                )
+                print(f"[LOG] Hãng '{filter_text}' đã hiển thị trên màn hình.")
                 break
 
             if show_more_btn.is_visible():
